@@ -1,4 +1,5 @@
 const proxy = require("http-proxy-middleware");
+import { base_url } from "./util/Api";
 
 // module.exports = function(app) {
 //   app.use(
@@ -11,7 +12,8 @@ const proxy = require("http-proxy-middleware");
 // };
 module.exports = function(app) {
   app.use(proxy("/api/", { 
-    target: "https://chopchowdev.herokuapp.com/api/",
+    target: base_url,
+    // target: "https://chopchowdev.herokuapp.com/api/",
     secure: false
   }));
 };
