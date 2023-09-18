@@ -159,7 +159,7 @@ const Grocery = () => {
                                                     <div className={styles.oneImage}>
                                                         {
 
-                                                            elem.item.itemImage0 ? <Image src={elem?.item?.itemImage0} width={95} height={100} className={styles.imgs} /> :
+                                                            elem.item?.itemImage0 ? <Image src={elem?.item?.itemImage0} width={95} height={100} className={styles.imgs} /> :
                                                                 <Image src={yellow} width={95} height={95} objectFit='cover' objectPosition='center' />
                                                         }
                                                         <p className={styles.name2}>{elem?.item?.item_name}</p>
