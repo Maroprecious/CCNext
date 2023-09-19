@@ -44,14 +44,15 @@ export const Modal = ({
             return alert('Enter List Name and description')
         }
         try {
+            let data = {
+                listName: modalState.listName,
+            }
+            if(modalState.description){
+                data.description = modalState.description
+            }
             const response = await axios(`/groceries/create`, {
                 method: 'POST',
-                data: {
-                    listName: modalState.listName,
-                    description: modalState.description
-                },
-
-
+                data
             })
             fetchList()
             toast.success('Grocery list created successfully')
