@@ -149,9 +149,11 @@ const GroceryPage = () => {
 
     const addJsonDataToGroceryList = async () => {
         try {
-            const data = {
+            let data = {
                 listName: itemList.listName,
-                item_name: value
+                item_name: value,
+                quantity: itemsToAdd.quantity || '',
+                measurement: itemsToAdd.measurement || ''
             }
             const response = await axios(`/groceries/grocery-item`, {
                 method: 'POST',
