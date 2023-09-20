@@ -30,6 +30,38 @@ import { CardDropdown } from '../../../src/components/dropdown/dropdown';
 
 
 const GroceryPage = () => {
+    const customStyles = {
+        option: (defaultStyles, state) => ({
+            ...defaultStyles,
+            color: '#6D6D6D;',
+            fontSize: '15px',
+            fontWeight: '200',
+            marginTop: '1.2rem',
+            marginBottom: '1.2rem',
+            backgroundColor: state.isSelected ? "#FFFFFF" : "#FFFFFF",
+            placeholder: (base) => ({
+                ...base,
+                className: 'placeholder',
+            }),
+        }),
+
+        control: (defaultStyles, state) => ({
+            ...defaultStyles,
+            borderRadius: '4px',
+            outline: state.isFocused ? '1px solid rgba(4, 213, 5, 0.90)' : '1px solid rgba(4, 213, 5, 0.10)',
+            border: state.isFocused ? '2px ' : '1px solid rgba(4, 213, 5, 0.60)',
+            borderColor: state.isSelected ? '1px solid rgba(4, 213, 5, 0.90)' : '1px solid rgba(4, 213, 5, 0.60)',
+            height: '51px',
+            color: '#6D6D6D;',
+            textAlign: 'justify',
+            paddingLeft: '.5rem',
+            "&:hover": {
+                borderColor: '1px solid rgba(4, 213, 5, 0.60)',
+            },
+
+        }),
+        // singleValue: (defaultStyles) => ({ ...defaultStyles, color: "#fff" }),
+    };
     const matches = useMediaQuery('(min-width: 920px)')
     const [isShow, setIsShow] = useState(false)
     const [open, setOpen] = useState({
@@ -152,8 +184,12 @@ const GroceryPage = () => {
             let data = {
                 listName: itemList.listName,
                 item_name: value,
-                quantity: itemsToAdd.quantity || '',
-                measurement: itemsToAdd.measurement || ''
+            }
+            if (itemsToAdd.quantity) {
+                data.quantity = itemsToAdd.quantity
+            }
+            if (itemsToAdd.measurement) {
+                data.quantity = itemsToAdd.measurement
             }
             const response = await axios(`/groceries/grocery-item`, {
                 method: 'POST',
@@ -161,6 +197,11 @@ const GroceryPage = () => {
                     "Content-Type": "application/json",
                 },
                 data: data
+            })
+            setItemsToAdd({
+                itemId: '',
+                quantity: '',
+                measurement: ''
             })
             getList()
             toast.success('Item added successfully')
@@ -310,6 +351,7 @@ const GroceryPage = () => {
                                         getItem(value)
                                         setValue(value)
                                     }}
+                                    customStyles={customStyles}
                                     noOptionsMessage={
                                         () => (
                                             <div className={styles.noOptions}>
@@ -367,6 +409,7 @@ const GroceryPage = () => {
                                     onSelect={(option) => setItemsToAdd({ ...itemsToAdd, measurement: option.value })}
                                     options={measurements}
                                     placeholder="Measurement"
+                                    customStyles={customStyles}
                                 />
                                 <button className={styles.btn} onClick={() => addItemToGrocery()}>Add New Item</button>
                             </div>
@@ -479,7 +522,7 @@ const GroceryPage = () => {
                                                                     <td className={styles.td}>
                                                                         -
                                                                     </td>
-                                                                    <td className={styles.td}> 
+                                                                    <td className={styles.td}>
                                                                         N/A
                                                                     </td>
                                                                     <td className={styles.td}>

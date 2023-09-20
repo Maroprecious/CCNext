@@ -6,7 +6,64 @@ import styles from '../../src/components/public-market/public-market.module.css'
 import { HiLocationMarker } from 'react-icons/hi'
 import { DropDownSelect } from "../../src/components/select/select";
 
+const categories = [
+    {
+        id: 1,
+        name: 'food',
+    },
+     {
+        id: 2,
+        name: 'clothes',
+    },
+    {
+        id: 3,
+        name: 'house',
+    },
+    {
+        id: 4,
+        name: 'cuisines',
+    },
+    {
+        id: 5,
+        name: 'appetizers',
+    },
+
+]
+
+
 const PublicMarket = () => {
+    const customStyles2 = {
+        option: (defaultStyles, state) => ({
+            ...defaultStyles,
+            color: '#6D6D6D;',
+            fontSize: '10px',
+            fontWeight: '200',
+            marginTop: '1.2rem',
+            marginBottom: '1.2rem',
+            backgroundColor: state.isSelected ? "#FFFFFF" : "#FFFFFF",
+            placeholder: (base) => ({
+                ...base,
+                className: 'placeholder2',
+            }),
+        }),
+
+        control: (defaultStyles, state) => ({
+            ...defaultStyles,
+            borderRadius: '4px',
+            outline: state.isFocused ? '1px solid rgba(255, 255, 255, 1)' : '1px solid rgba(255, 255, 255, 1)',
+            border: state.isFocused ? '1px solid rgba(255, 255, 255, 1)' : '1px solid rgba(255, 255, 255, 1)',
+            borderColor: state.isSelected ? '1px solid rgba(255, 255, 255, 1)' : '1px solid rgba(255, 255, 255, 1)',
+            height: '44px',
+            color: '#6D6D6D;',
+            textAlign: 'justify',
+            paddingLeft: '.5rem',
+            "&:hover": {
+                borderColor: '#fff',
+            },
+
+        }),
+        // singleValue: (defaultStyles) => ({ ...defaultStyles, color: "#fff" }),
+    };
     return (
         <div className={styles.container}>
             <Head>
@@ -22,11 +79,20 @@ const PublicMarket = () => {
             </div>
             <div className={styles.header2}>
                 <GoBack />
-                <div className={styles.two}>
-                    <DropDownSelect
-                        onSelect={(e) =>  null}
-                        options={null}
-                         placeholder='All categories' onChange={(e) => null} />
+                <div className={styles.row}>
+                    <div className={styles.two}>
+                        <DropDownSelect
+                            onSelect={(e) => ''}
+                            options={categories}
+                            placeholder='All categories'
+                            onChange={(e) => ''}
+                            customStyles={customStyles2} />
+                    </div>
+                    <div>
+                        <input
+                            type='search'
+                            className={styles.search} />
+                    </div>
                 </div>
             </div>
         </div>

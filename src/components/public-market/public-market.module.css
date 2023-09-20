@@ -20,7 +20,7 @@
 }
 
 .searchbar {
-    width: 45%;
+    width: 53%;
     border-radius: 4px;
     background: #FFF;
     color: #949494;
@@ -28,14 +28,14 @@
     height: 39px;
     border: none;
     outline: none;
-    padding-left: 3.5rem;
+    padding-left: 4rem;
     font-size: 14px;
 }
 
 .locationIcon {
     position: absolute;
     top: 37%;
-    left: 36%;
+    left: 32%;
 }
 
 .title {
@@ -44,9 +44,30 @@
     font-weight: 400;
     margin-right: 2.2rem;
 }
-.header2{
-    display: flex;
-    width: 95%;
-    margin: 2rem auto;
 
+.header2 {
+    display: flex;
+    width: 68%;
+    margin: 2rem 0 2rem 3%;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.two{
+    width: 202px;
+}
+.search {
+    width: 408px;
+    padding: 11px 18px 11px 21px;
+    margin-left: 1rem;
+    border-radius: 4px 0px 0px 4px;
+    border: 0px solid rgba(148, 148, 148, 0.60);
+    background: #FFF;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.05);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: start;
 }
