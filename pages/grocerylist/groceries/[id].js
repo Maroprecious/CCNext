@@ -189,7 +189,7 @@ const GroceryPage = () => {
                 data.quantity = itemsToAdd.quantity
             }
             if (itemsToAdd.measurement) {
-                data.quantity = itemsToAdd.measurement
+                data.measurement = itemsToAdd.measurement
             }
             const response = await axios(`/groceries/grocery-item`, {
                 method: 'POST',
@@ -371,7 +371,6 @@ const GroceryPage = () => {
                                     options={item}
                                     onSelect={(option) => setItemsToAdd({ ...itemsToAdd, itemId: option.value })}
                                     placeholder="Search meals, products and ingredients"
-
                                     formatOptionLabel={(e, { context }) => context === 'value' ?
                                         <div>
                                             <p className={styles.labelName}>{e.label}</p>
@@ -520,7 +519,7 @@ const GroceryPage = () => {
                                                                         {element?.itemData?.item_name}
                                                                     </td>
                                                                     <td className={styles.td}>
-                                                                        -
+                                                                       {element?.itemData?.quantity} {element?.itemData?.measurement?.measurement_name}
                                                                     </td>
                                                                     <td className={styles.td}>
                                                                         N/A

@@ -88,12 +88,16 @@ const PublicMarket = () => {
                             onChange={(e) => ''}
                             customStyles={customStyles2} />
                     </div>
-                    <div>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <input
                             type='search'
                             className={styles.search} />
+                            <button className={styles.searchBtn}>Search</button>
                     </div>
                 </div>
+            </div>
+            <div className={styles.bodyContainer}>
+                <p>Stores</p>
             </div>
         </div>
     )
