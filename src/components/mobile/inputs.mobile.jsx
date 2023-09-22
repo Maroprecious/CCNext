@@ -2,7 +2,7 @@ import styles from '../grocery/grocery.module.css'
 import { DropDownSelect } from '../select/select'
 import Image from 'next/image'
 
-export const MobileInputs = ({getItem, setValue, setItemsToAdd, setIsShow,addItemToGrocery, itemsToAdd,item, measurements }) => {
+export const MobileInputs = ({getItem, setValue, setItemsToAdd, setIsShow,addItemToGrocery, itemsToAdd,item, measurements, addJsonDataToGroceryList }) => {
     return (
         <div className={styles.grid2}>
             <DropDownSelect
@@ -13,17 +13,17 @@ export const MobileInputs = ({getItem, setValue, setItemsToAdd, setIsShow,addIte
                 noOptionsMessage={
                     () => (
                         <div className={styles.noOptions}>
-                            <p className={styles.no_item}>Item Not Found</p>
-                            <button className={styles.btn3}>Add Item to List</button>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '2rem' }}>
-                                <div className={styles.line}></div>
-                                <p className={styles.or}>OR</p>
-                                <div className={styles.line}></div>
-                            </div>
-                            <p className={styles.add}>Add Details to Suggested Item</p>
-                            <button className={styles.btnOutline} onClick={() => setIsShow(true)}>Suggest Item</button>
-
+                        <p className={styles.no_item}>Item Not Found</p>
+                        <button onClick={addJsonDataToGroceryList} className={styles.btn3}>Add Item to List</button>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '2rem' }}>
+                            <div className={styles.line}></div>
+                            <p className={styles.or}>OR</p>
+                            <div className={styles.line}></div>
                         </div>
+                        <p className={styles.add}>Add Details to Suggested Item</p>
+                        <button className={styles.btnOutline} onClick={() => setIsShow(true)}>Suggest Item</button>
+
+                    </div>
                     )
                 }
                 options={item}

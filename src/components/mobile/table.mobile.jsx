@@ -33,7 +33,7 @@ export const MobileTable = ({ itemList, deleteItemFromGrocery, toggle, addItemsT
                                             <div style={{ width: '30%' }}>
                                                 {
                                                     element?.item.itemImage0 ?
-                                                        <Image src={element?.item?.itemImage0} height={50} width={55} /> : <Image src={yellow} height={50} width={55} style={{ borderRadius: '5px' }} />
+                                                        <Image src={element?.item?.itemImage0} height={50} width={55} /> : <Image src={Frame} height={50} width={55} style={{ borderRadius: '5px' }} />
                                                 }
                                             </div>
                                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', marginLeft: '.4rem', marginTop: '-.7rem', width: '70%' }}>
@@ -83,22 +83,26 @@ export const MobileTable = ({ itemList, deleteItemFromGrocery, toggle, addItemsT
                                         <td className={styles.td}>{element?.item?.item_price ? `$${element?.item?.item_price}` : 'N/A'}</td>
                                         <td onClick={() => deleteItemFromGrocery(element._id)} className={styles.td} style={{ textAlign: 'center' }}><IoMdCloseCircle className={styles.close} color='#949494' /></td>
                                     </tr> :
-                                    <tr key={element?.itemData?._id} className={styles.tr2}>
-                                        <td className={styles.td}>
-                                            <input type='checkbox' className={styles.check1} />
-                                        </td>
-                                        <td className={styles.td2} style={{ cursor: 'pointer', paddingRight: '2rem' }}>
-                                            <div style={{ width: '30%' }}>
-                                                <Image src={Frame} height={50} width={55} />
-                                            </div>
-                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', marginLeft: '.4rem', width: '70%' }}>
-                                                <p>{element?.itemData?.item_name}</p>
-                                            </div>
-                                        </td>
-                                        <td className={styles.td} style={{ textAlign: 'center' }}>-</td>
-                                        <td className={styles.td}>N/A</td>
-                                        <td onClick={() => deleteItemFromGrocery(element._id)} className={styles.td} style={{ textAlign: 'center' }}><IoMdCloseCircle className={styles.close} color='#949494' /></td>
-                                    </tr>
+                                      <tr key={element?.itemData?._id} className={styles.tr}>
+                                      <td className={styles.td}>
+                                          <input type='checkbox' style={{ marginRight: '2rem', marginLeft: '1rem', color: 'rgba(244, 121, 0, 1)', width: '2rem', height: '2rem' }} />
+                                          <Image src={Frame} height={50} width={55} style={{ borderRadius: '5px' }} />
+
+                                      </td>
+                                      <td className={styles.td}>
+                                          {element?.itemData?.item_name}
+                                      </td>
+                                      <td className={styles.td}>
+                                         {element?.itemData?.quantity} {element?.itemData?.measurement?.measurement_name}
+                                      </td>
+                                      <td className={styles.td}>
+                                          N/A
+                                      </td>
+                                      <td className={styles.td}>
+                                          -
+                                      </td>
+                                      <td onClick={() => deleteItemFromGrocery(element._id)} className={styles.td} style={{ textAlign: 'center' }}><IoMdCloseCircle size={23} color='#949494' /></td>
+                                  </tr>
                             }
                         </>
                     ))

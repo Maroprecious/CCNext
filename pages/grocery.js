@@ -7,7 +7,7 @@ import Image from "next/image";
 import noteGif from '../public/assets/icons/gif.gif'
 import Footer from "../src/components/Footer/Footer";
 import { Modal } from "../src/components/modal/popup-modal";
-import { disableBodyScroll} from 'body-scroll-lock';
+import { disableBodyScroll } from 'body-scroll-lock';
 import girl from "../public/assets/icons/girl.jpg"
 import { AiFillEdit } from 'react-icons/ai'
 import { MdDelete, MdRemoveRedEye } from 'react-icons/md'
@@ -18,6 +18,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { toast } from "react-toastify";
 import yellow from '../public/assets/meal_pics/yellow.jpeg'
+import Frame from "../public/assets/logos/Frame.png"
 import { GroceryModal } from "../src/components/modal/grocery-modal";
 
 const Grocery = () => {
@@ -65,7 +66,7 @@ const Grocery = () => {
         const doc = document.querySelector('#modal_container')
         console.log(doc)
         disableBodyScroll(doc)
-    
+
     }, [show])
     console.log(groceryList.groceryItems, 'groceryy')
     return (
@@ -155,16 +156,30 @@ const Grocery = () => {
                                     <div className={ele.groceryItems?.length ? styles.images : styles.noimages}>
                                         {
                                             ele.groceryItems?.length ? ele.groceryItems?.slice(0, 3)?.map((elem, idx) => (
-                                                <div style={{ display: 'flex', alignItems: 'center' }} key={idx}>
-                                                    <div className={styles.oneImage}>
-                                                        {
+                                                <>
+                                                    {
+                                                        !elem.hasOwnProperty('itemData') ?
+                                                            <div style={{ display: 'flex', alignItems: 'center' }} key={idx}>
 
-                                                            elem.item?.itemImage0 ? <Image src={elem?.item?.itemImage0} width={95} height={100} className={styles.imgs} /> :
-                                                                <Image src={yellow} width={95} height={95} objectFit='cover' objectPosition='center' />
-                                                        }
-                                                        <p className={styles.name2}>{elem?.item?.item_name}</p>
-                                                    </div>
-                                                </div>
+                                                                <div className={styles.oneImage}>
+                                                                    {
+
+                                                                        elem.item?.itemImage0 ? <Image src={elem?.item?.itemImage0} width={95} height={100} className={styles.imgs} /> :
+                                                                            <Image src={Frame} width={95} height={100} objectFit='cover' objectPosition='center' className={styles.imgs2} />
+                                                                    }
+                                                                    <p className={styles.name2}>{elem?.item?.item_name}</p>
+                                                                </div>
+                                                            </div>
+                                                            :
+                                                            <div style={{ display: 'flex', alignItems: 'center' }} key={idx}>
+
+                                                                <div className={styles.oneImage}>
+                                                                    <Image src={Frame} width={95} height={100} objectFit='cover' objectPosition='center' className={styles.imgs} />
+                                                                    <p className={styles.name2}>{elem?.itemData?.item_name}</p>
+                                                                </div>
+                                                            </div>
+                                                    }
+                                                </>
                                             )) :
                                                 <div>
 
@@ -172,7 +187,7 @@ const Grocery = () => {
                                         }
                                     </div>
                                 </div>
-                                <div className={styles.flex2} style={{ marginBottom: '1rem', marginTop: '1rem'}}>
+                                <div className={styles.flex2} style={{ marginBottom: '1rem', marginTop: '1rem' }}>
                                     <div className={styles.flex}>
                                         <Image src={girl} width={40} height={40} className={styles.person} />
                                         <p className={styles.name}>{ele.user.first_name} {ele.user.last_name}</p>
@@ -183,7 +198,7 @@ const Grocery = () => {
                                 </div>
                             </div>
                         ))} </div> :
-                    < div className={styles.card}>
+                    <div className={styles.card}>
                         <Image src={noteGif} height={200} width={250} className={styles.image} />
                         <div className={styles.flex}>
                             <p className={styles.card_text}>You have no Grocery List.</p>
