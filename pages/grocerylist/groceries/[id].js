@@ -77,6 +77,8 @@ const GroceryPage = () => {
     const [suggestion, setSuggestionState] = useState({})
     const router = useRouter();
     const [value, setValue] = useState("")
+    const [measurement_value, setMeasurementValue] = useState("")
+    const [measurement_value_1, setMeasurementValue_1] = useState("")
     const { addItemsToCart, cartItems, cartHasItem } = useCart()
     const [measurements, setMeasurement] = useState([{
         value: '',
@@ -105,7 +107,6 @@ const GroceryPage = () => {
 
     const id = router?.query?.id;
 
-    console.log('cartItems-', cartItems)
 
     const getAllMeasurement = async (newPage) => {
         try {
@@ -212,6 +213,37 @@ const GroceryPage = () => {
         }
     }
 
+    const addJsonMeasurementToGroceryList = async () => {
+        try {
+            let data = {
+                listName: itemList.listName,
+            }
+
+            if (measurement_value_1) {
+                data.measurement = measurement_value_1
+            }
+            console.log('data', data)
+            const response = await axios(`/groceries/grocery-measurement`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: data
+            })
+            setItemsToAdd({
+                itemId: '',
+                quantity: '',
+                measurement: ''
+            })
+            getList()
+            toast.success('Measurement added successfully')
+            console.log(response.data, 'yello')
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const getItem = async (name) => {
         try {
             const response = await axios.get(`/items/filter/${name}`)
@@ -278,8 +310,12 @@ const GroceryPage = () => {
         getAllMeasurement()
         getList()
     }, [])
-    console.log(itemList?.groceryItems, 'amen')
 
+    useEffect(() => {
+        if(measurement_value){
+            setMeasurementValue_1(measurement_value)
+        }
+    }, [measurement_value])
     return <div>
         <Head>
             <title>Chop Chow Grocery List</title>
@@ -404,13 +440,20 @@ const GroceryPage = () => {
                                     onChange={(e) => setItemsToAdd({ ...itemsToAdd, quantity: e.target.value })}
                                     className={styles.inputbg} />
                                 <DropDownSelect
-                                    onChange={(value) => console.log(value)}
+                                    onChange={(value) => setMeasurementValue(value)}
                                     onSelect={(option) => setItemsToAdd({ ...itemsToAdd, measurement: option.value })}
                                     options={measurements}
                                     placeholder="Measurement"
                                     customStyles={customStyles}
                                 />
-                                <button className={styles.btn} onClick={() => addItemToGrocery()}>Add New Item</button>
+                                <button className={styles.btn} onClick={() => {
+                                    console.log(measurement_value_1, 'item to add')
+                                    if (itemsToAdd.itemId || itemsToAdd.quantity || itemsToAdd.measurement) {
+                                        addItemToGrocery()
+                                    } else if (!Boolean(itemsToAdd.measurement) && measurement_value_1) {
+                                        addJsonMeasurementToGroceryList()
+                                    }
+                                }}>Add New Item</button>
                             </div>
                             :
                             <MobileInputs
@@ -421,8 +464,8 @@ const GroceryPage = () => {
                                 itemsToAdd={itemsToAdd}
                                 setItemsToAdd={setItemsToAdd}
                                 item={item}
-                                measurements={measurements} 
-                                addJsonDataToGroceryList={addJsonDataToGroceryList}/>
+                                measurements={measurements}
+                                addJsonDataToGroceryList={addJsonDataToGroceryList} />
                     }
                 </div>
                 {
@@ -520,7 +563,7 @@ const GroceryPage = () => {
                                                                         {element?.itemData?.item_name}
                                                                     </td>
                                                                     <td className={styles.td}>
-                                                                       {element?.itemData?.quantity} {element?.itemData?.measurement?.measurement_name}
+                                                                        {element?.itemData?.quantity} {element?.itemData?.measurement?.measurement_name}
                                                                     </td>
                                                                     <td className={styles.td}>
                                                                         N/A
